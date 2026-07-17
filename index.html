@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feijoada da Família - Cardápio & Pedidos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #D32F2F; /* Vermelho apetitoso */
+            --secondary: #FFB300; /* Amarelo ouro/laranja */
+            --dark: #1E1E1C; /* Preto carvão */
+            --light: #FDFBF7; /* Off-white suave */
+            --gray: #757575;
+            --whatsapp: #25D366;
+            --ifood: #EA1D2C;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        /* Container simulando a tela de um celular */
+        .mobile-container {
+            width: 100%;
+            max-width: 412px;
+            background-color: #FFFFFF;
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Header com a imagem de destaque */
+        .header-banner {
+            position: relative;
+            height: 200px;
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1626509135750-f38b2518e154?auto=format&fit=crop&q=80&w=600') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            color: #FFFFFF;
+        }
+
+        .header-banner h1 {
+            font-size: 24px;
+            font-weight: 800;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            line-height: 1.2;
+        }
+
+        .header-banner p {
+            font-size: 13px;
+            color: var(--secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        /* Status de Funcionamento */
+        .status-badge {
+            background-color: rgba(37, 211, 102, 0.15);
+            color: var(--whatsapp);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            align-self: flex-start;
+            margin: 15px 20px 5px 20px;
+        }
+
+        .status-badge .dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--whatsapp);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(37, 211, 102, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        /* Seções de Conteúdo */
+        .content {
+            padding: 0 20px 20px 20px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 15px 0 10px 0;
+            color: var(--dark);
+            border-left: 4px solid var(--primary);
+            padding-left: 8px;
+        }
+
+        /* Card do Prato Principal */
+        .dish-card {
+            background-color: var(--light);
+            border: 1px solid #ECE9E4;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .dish-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .dish-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .dish-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .dish-description {
+            font-size: 12px;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        .dish-tags {
+            display: flex;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .tag {
+            font-size: 10px;
+            background-color: #EFECE6;
+            color: var(--dark);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* Botões de Conversão Rápidos e Estilizados */
+        .cta-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-cta {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: transform 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-cta:active {
+            transform: scale(0.98);
+        }
+
+        .btn-ifood {
+            background-color: var(--ifood);
+            color: #FFFFFF;
+        }
+
+        .btn-whatsapp {
+            background-color: var(--whatsapp);
+            color: #FFFFFF;
+        }
+
+        .btn-secondary {
+            background-color: #FFFFFF;
+            color: var(--dark);
+            border: 2px solid var(--dark);
+        }
+
+        /* Footer da página */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 11px;
+            color: var(--gray);
+            border-top: 1px solid #ECE9E4;
+            background-color: #FAFAFA;
+        }
+
+        .footer strong {
+            color: var(--dark);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-container">
+        <!-- Banner Principal -->
+        <div class="header-banner">
+            <p>Sabor Caseiro & Tradição</p>
+            <h1>Feijoada da Família</h1>
+        </div>
+
+        <!-- Status de Funcionamento -->
+        <div class="status-badge">
+            <span class="dot"></span>
+            Aceitando Pedidos (Quarta & Sábado)
+        </div>
+
+        <div class="content">
+            <!-- Prato Principal -->
+            <div class="section-title">Nosso Cardápio Especial</div>
+            
+            <div class="dish-card">
+                <div class="dish-header">
+                    <span class="dish-title">Feijoada Completa Premium</span>
+                    <span class="dish-price">R$ 39,90</span>
+                </div>
+                <p class="dish-description">
+                    Nossa receita tradicional com carnes nobres selecionadas (carne seca, lombo defumado, costelinha, paio, calabresa e bacon) cozidas lentamente no capricho.
+                </p>
+                <div class="dish-description" style="margin-top: 4px; font-weight: 600; color: #555;">
+                    Acompanha: Arroz soltinho, farofa caseira temperada, couve refogada no alho e fatias de laranja fresca.
+                </div>
+                <div class="dish-tags">
+                    <span class="tag">Serve 1 a 2 pessoas</span>
+                    <span class="tag">Ingredientes Frescos</span>
+                </div>
+            </div>
+
+            <!-- Botões de Pedido -->
+            <div class="section-title">Faça seu Pedido Agora</div>
+            <div class="cta-container">
+                <!-- Botão iFood -->
+                <a href="SUA_URL_DO_IFOOD_AQUI" class="btn-cta btn-ifood" target="_blank">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block; vertical-align:middle;">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm0-8h-2V7h2v2zm4 8h-2V7h2v10z"/>
+                    </svg>
+                    Pedir pelo iFood
+                </a>
+
+                <!-- Botão WhatsApp -->
+                <a href="https://wa.me/5511999999999?text=Ol%C3%A1%21+Gostaria+de+fazer+um+pedido+da+Feijoada+Especial." class="btn-cta btn-whatsapp" target="_blank">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block; vertical-align:middle;">
+                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.262 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.665.989 3.3.15 5.348 2.029 2.047 1.879 3.732.147 5.344-.808l.382-.227c1.474-.875 2.766-.412 3.766.1l.17.085c.954.478 1.585.795 1.77.172v.001z"/>
+                    </svg>
+                    Pedir Direto via WhatsApp
+                </a>
+                
+                <!-- Informações Adicionais -->
+                <p style="text-align: center; font-size: 11px; color: var(--gray); margin-top: 5px;">
+                    *Taxas de entrega variam conforme a região nas plataformas.
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>Desenvolvido com carinho por Don Maia</strong></p>
+            <p>© 2026 Feijoada da Família. Todos os direitos reservados.</p>
+        </div>
+    </div>
+
+</body>
+</html>
